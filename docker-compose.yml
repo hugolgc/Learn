@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  frontend:
+    image: node:20
+    working_dir: /frontend
+    volumes:
+      - ./frontend:/frontend
+    ports:
+      - 5173:5173
+    command: sh -c "npm install && npm run dev"
+
+  backend:
+    image: node:20
+    working_dir: /backend
+    volumes:
+      - ./backend:/backend
+    env_file:
+      - .env
+    ports:
+      - 3000:3000
+    command: sh -c "npm install && npm run start:dev"
+
+  database:
+    image: mysql:latest
+    env_file:
+      - .env
+    ports:
+      - 3306:3306
+
+# docker-compose exec <SERVICE_NAME> sh
