@@ -28,4 +28,11 @@ services:
     ports:
       - 3306:3306
 
+  manager:
+    image: adminer:4.8.1
+    env_file:
+      - .env
+    ports:
+      - 8080:8080
+
 # docker-compose exec <SERVICE_NAME> sh
