@@ -1,0 +1,36 @@
+services:
+  database:
+    image: postgres:16.3
+    env_file:
+      - .env
+
+  admin:
+    image: adminer:4.8.1
+    ports:
+      - 8080:8080
+    depends_on:
+      - database
+
+  backend:
+    image: node:20.16
+    command: sh -c "npm i && npm run start:dev"
+    working_dir: /backend
+    volumes:
+      - ./backend:/backend
+    ports:
+      - 127.0.0.1:3000:3000
+    depends_on:
+      - database
+    env_file:
+      - .env
+
+  frontend:
+     image: node:20.16
+     command: sh -c "npm i && npm run start"
+     working_dir: /frontend
+     volumes:
+       - ./frontend:/frontend
+     ports:
+       - 127.0.0.1:4200:4200
+     env_file:
+       - .env
