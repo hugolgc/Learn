@@ -1,5 +1,4 @@
 // @ts-check
-
 import eslint from "@eslint/js";
 import tseslint from "typescript-eslint";
 
@@ -7,10 +6,23 @@ export default tseslint.config(
     eslint.configs.recommended,
     ...tseslint.configs.strictTypeChecked,
     ...tseslint.configs.stylisticTypeChecked,
-    { ignores: ["eslint.config.mjs"] },
-    { languageOptions: { parserOptions: { project: true } } },
+    { ignores: ["eslint.config.mjs", "dist/"] },
+    { languageOptions: { parserOptions: { projectService: true, tsconfigRootDir: import.meta.dirname } } },
     {
         rules: {
+            eqeqeq: "error",
+            "no-shadow": "error",
+            "no-loop-func": "error",
+            "no-magic-numbers": "error",
+            "no-implicit-coercion": "error",
+            "prefer-destructuring": "error",
+            "no-restricted-syntax": [
+                "error",
+                {
+                    message: "Usage of `null` is not allowed. Use `undefined` instead.",
+                    selector: "Literal[value=null]",
+                },
+            ],
             "@typescript-eslint/typedef": [
                 "error",
                 {
@@ -22,38 +34,35 @@ export default tseslint.config(
                     memberVariableDeclaration: true,
                 },
             ],
-
-            "@typescript-eslint/prefer-find": "error",
-            "@typescript-eslint/unbound-method": "off",
-            "@typescript-eslint/prefer-readonly": "error",
+            "@typescript-eslint/array-type": ["error", { default: "array" }],
             "@typescript-eslint/member-ordering": "error",
-            "@typescript-eslint/no-require-imports": "error",
+            "@typescript-eslint/prefer-readonly": "error",
+            "@typescript-eslint/naming-convention": [
+                "error",
+                { selector: "class", format: ["PascalCase"] },
+                { selector: "variable", format: ["camelCase"] },
+                { selector: "variable", format: ["camelCase", "UPPER_CASE"], modifiers: ["const"] },
+                { selector: "interface", format: ["PascalCase"] },
+                { selector: "typeAlias", format: ["PascalCase"] },
+                { selector: "enumMember", format: ["UPPER_CASE"] },
+            ],
+            "@typescript-eslint/no-inferrable-types": "off",
             "@typescript-eslint/no-extraneous-class": "off",
-            "@typescript-eslint/no-empty-object-type": "error",
+            "@typescript-eslint/no-restricted-types": [
+                "error",
+                { types: { null: "Usage of `null` is not allowed. Use `undefined` instead." } },
+            ],
             "@typescript-eslint/method-signature-style": ["error", "method"],
-            "@typescript-eslint/no-wrapper-object-types": "error",
-            "@typescript-eslint/no-unsafe-function-type": "error",
-            "@typescript-eslint/consistent-type-exports": "error",
             "@typescript-eslint/no-useless-empty-export": "error",
-            "@typescript-eslint/prefer-enum-initializers": "error",
+            "@typescript-eslint/no-unsafe-type-assertion": "error",
             "@typescript-eslint/no-unnecessary-qualifier": "error",
-            "@typescript-eslint/strict-boolean-expressions": "error",
-            "@typescript-eslint/no-import-type-side-effects": "error",
+            "@typescript-eslint/prefer-enum-initializers": "error",
+            "@typescript-eslint/require-array-sort-compare": "error",
+            "@typescript-eslint/strict-boolean-expressions": ["error", { allowNumber: false, allowString: false }],
+            "@typescript-eslint/switch-exhaustiveness-check": "error",
             "@typescript-eslint/explicit-function-return-type": "error",
             "@typescript-eslint/explicit-member-accessibility": "error",
-            "@typescript-eslint/explicit-module-boundary-types": "error",
-            "@typescript-eslint/no-unnecessary-type-parameters": "error",
             "@typescript-eslint/no-unnecessary-parameter-property-assignment": "error",
-
-            // Disable
-            "@typescript-eslint/no-inferrable-types": "off",
-            "@typescript-eslint/prefer-readonly-parameter-types": "off",
-
-            //  Default NestJS
-            //  "@typescript-eslint/no-explicit-any': "off",
-            //  "@typescript-eslint/interface-name-prefix': "off",
-            //  "@typescript-eslint/explicit-function-return-type': "off",
-            //  "@typescript-eslint/explicit-module-boundary-types': "off",
         },
     },
 );
