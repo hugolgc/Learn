@@ -12,6 +12,7 @@ export default tseslint.config(eslint.configs.all, tseslint.configs.all, {
         },
     },
     rules: {
+        "new-cap": "off",
         "one-var": "off",
         "id-length": "off",
         "sort-keys": "off",
@@ -21,6 +22,7 @@ export default tseslint.config(eslint.configs.all, tseslint.configs.all, {
         "sort-imports": "off",
         "max-statements": "off",
         "arrow-body-style": "off",
+        "no-warning-comments": "off",
         "no-restricted-syntax": ["error", { selector: "Literal[value=null]" }],
         "@typescript-eslint/typedef": [
             "error",
@@ -47,9 +49,12 @@ export default tseslint.config(eslint.configs.all, tseslint.configs.all, {
             },
         ],
         "@typescript-eslint/naming-convention": "off",
+        "@typescript-eslint/init-declarations": "off",
+        "@typescript-eslint/no-extraneous-class": "off",
         "@typescript-eslint/no-inferrable-types": "off",
         "@typescript-eslint/no-restricted-types": ["error", { types: { null: "Use `undefined` instead." } }],
         "@typescript-eslint/parameter-properties": "off",
+        "@typescript-eslint/no-floating-promises": "off",
         "@typescript-eslint/class-methods-use-this": "off",
         "@typescript-eslint/method-signature-style": ["error", "method"],
         "@typescript-eslint/consistent-type-imports": ["error", { prefer: "no-type-imports" }],
